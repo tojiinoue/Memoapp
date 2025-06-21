@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-  ]
+, "vite-env.d.ts"  ]
 }

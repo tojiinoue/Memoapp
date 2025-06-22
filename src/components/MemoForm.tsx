@@ -178,9 +178,20 @@ const MemoForm = () => {
       <div className="mb-6 flex justify-between items-center px-3 py-2 rounded-md bg-gray-100 dark:bg-gray-700 shadow-sm">
         {user ? (
           <>
-            <p className="text-sm font-medium text-gray-800 dark:text-white">
-              👤 {user.displayName} さんでログイン中
-            </p>
+            <div className="flex items-center gap-2">
+              {user.photoURL ? (
+                <img
+                  src={user.photoURL}
+                  alt="User Icon"
+                  className="w-8 h-8 rounded-full"
+                />
+              ) : (
+                <span className="text-lg">👤</span>
+              )}
+              <p className="text-sm font-medium text-gray-800 dark:text-white">
+                {user.displayName} さんでログイン中
+              </p>
+            </div>
             <button
               className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-1.5 rounded-md shadow"
               onClick={handleLogout}
@@ -392,17 +403,21 @@ const MemoForm = () => {
                     </button>
                   </div>
                   {summaryResults[memo.id] && (
-                    <div className="mt-3">
+                    <div className="mt-4">
                       <button
-                        className="text-sm text-blue-600 dark:text-blue-400 underline"
+                        className="text-sm text-blue-600 dark:text-blue-400 underline focus:outline-none transition"
                         onClick={() => toggleSummary(memo.id)}
                       >
                         {summaryOpenIds[memo.id] ? '▲ 要約を隠す' : '▼ 要約を見る'}
                       </button>
 
                       {summaryOpenIds[memo.id] && (
-                        <div className="mt-2 p-3 bg-yellow-100 dark:bg-yellow-900 text-sm rounded">
-                          <strong>要約：</strong>{summaryResults[memo.id]}
+                        <div className="mt-3 p-4 bg-yellow-50 dark:bg-yellow-800 rounded-xl shadow-inner flex items-start gap-3 transition-all duration-300 ease-in-out">
+                          <div className="text-yellow-500 text-xl">💡</div>
+                          <div className="text-sm text-gray-800 dark:text-gray-100 leading-relaxed">
+                            <div className="font-semibold mb-1">要約：</div>
+                            <div>{summaryResults[memo.id]}</div>
+                          </div>
                         </div>
                       )}
                     </div>
